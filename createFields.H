@@ -45,6 +45,14 @@ dimensionedScalar alpha
      transportProperties.lookup("alpha")
 );
 
+dimensionedScalar Md
+(
+     "Md",
+     transportProperties.lookup("Md")
+);
+
+
+
 // scalar fields
 
 Info<< "Reading field p\n" << endl;
@@ -89,7 +97,7 @@ volScalarField phi_m
     ),
     mesh
 );
-
+*/
 Info<< "Reading field alpha_m\n" << endl;
 volScalarField alpha_m
 (
@@ -103,7 +111,19 @@ volScalarField alpha_m
     ),
     mesh
 );
-*/
+
+forAll(alpha_m,H,i)
+{
+    //const scalar x = mesh.C() [i][0];
+    //const scalar y = mesh.C() [i][1];
+    //const scalar z = mesh.C() [i][2];
+    
+    alpha_m[i] = 4*3.1415e-7*(1e-12)*H[i][1]/()
+    
+}    
+alpha_m.write();
+
+
 // Vector fields
 
 Info<< "Reading field U\n" << endl;
@@ -133,7 +153,7 @@ volVectorField M
     ),
     mesh
 );
-
+*/
 Info<< "Reading field M0\n" << endl;
 volVectorField M0
 (
@@ -147,6 +167,17 @@ volVectorField M0
     ),
     mesh
 );
+forAll(M0,alpha_m,i)
+{
+    //const scalar x = mesh.C() [i][0];
+    //const scalar y = mesh.C() [i][1];
+    //const scalar z = mesh.C() [i][2];
+    
+    M0[i][0] = 0.0;
+    M0[i][1] = vf*Md*(1.0/(tanh(alpha_m[i])) - 1.0/(alpha_m[i]));
+    M0[i][2] = 0.0;
+}    
+M0.write();
 
 Info<< "Reading field H\n" << endl;
 volVectorField H
@@ -161,7 +192,19 @@ volVectorField H
     ),
     mesh
 );
-*/
+//
+forAll(H,i)
+{
+    //const scalar x = mesh.C() [i][0];
+    const scalar y = mesh.C() [i][1];
+    //const scalar z = mesh.C() [i][2];
+    
+    H[i][0] = 0.0;
+    H[i][1] = y;
+    H[i][2] = 0.0;
+}    
+H.write();
+
 #include "createPhi.H"
 
 
