@@ -12,7 +12,7 @@ IOdictionary transportProperties
     )
 );
 
-// uniform and constant
+// uniform and constant imported from dict
 
 dimensionedScalar nu
 (
@@ -33,7 +33,7 @@ dimensionedScalar vf // volumetric fraction of suspended particles
     transportProperties.lookup("vf")
 );
 
-dimensionedScalar pe
+dimensionedScalar Pe
 (
     "Pe",
     transportProperties.lookup("Pe")
@@ -41,6 +41,7 @@ dimensionedScalar pe
 
 dimensionedScalar alpha
 (
+     "alpha",
      transportProperties.lookup("alpha")
 );
 
@@ -74,6 +75,7 @@ volScalarField T
     mesh
 );
 
+/*
 Info<< "Reading field phi_m\n" << endl;
 volScalarField phi_m
 (
@@ -101,7 +103,7 @@ volScalarField alpha_m
     ),
     mesh
 );
-
+*/
 // Vector fields
 
 Info<< "Reading field U\n" << endl;
@@ -117,7 +119,7 @@ volVectorField U
     ),
     mesh
 );
-
+/*
 Info<< "Reading field M\n" << endl;
 volVectorField M
 (
@@ -159,7 +161,7 @@ volVectorField H
     ),
     mesh
 );
-
+*/
 #include "createPhi.H"
 
 
