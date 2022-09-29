@@ -124,7 +124,7 @@ volVectorField U
     ),
     mesh
 );
-
+/*
 Info<< "Reading field M\n" << endl;
 volVectorField M
 (
@@ -138,7 +138,7 @@ volVectorField M
     ),
     mesh
 );
-
+*/
 
 Info<< "Reading field H\n" << endl;
 volVectorField H
@@ -161,7 +161,7 @@ forAll(H,i)
     //const scalar z = mesh.C() [i][2];
     
     H[i][0] = 0.0;
-    H[i][1] = (1.0e+5)*y;
+    H[i][1] = (1.0e+5)*(1 - y);
     H[i][2] = 0.0;
 }    
 H.write();
