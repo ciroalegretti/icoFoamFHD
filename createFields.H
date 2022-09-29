@@ -40,10 +40,10 @@ dimensionedScalar vf // volumetric fraction of suspended particles
     transportProperties.lookup("vf")
 );
 
-dimensionedScalar Pe
+dimensionedScalar tb
 (
-    "Pe",
-    transportProperties.lookup("Pe")
+    "tb",
+    transportProperties.lookup("tb")
 );
 
 dimensionedScalar alpha
@@ -193,15 +193,6 @@ volScalarField alpha_m
     mesh
 );
 
-forAll(alpha_m,i)
-{
-       
-    alpha_m[i] = mu0.value() * m.value() * modH[i]/ (Kb.value() * T[i]);
-    
-}    
-alpha_m.write();
-
-
 Info<< "Reading field M0\n" << endl;
 volVectorField M0
 (
@@ -216,16 +207,6 @@ volVectorField M0
     mesh
 );
  
-forAll(M0,i)
-{
-    double alpha_mC = alpha_m[i];
-    
-    M0[i][0] = 0.0;
-    M0[i][1] = vf.value() * Md.value() * (1.0/(Foam::tanh(alpha_mC)) - 1.0/(alpha_mC));
-    M0[i][2] = 0.0;
-
-}    
-
 Info<< "Reading field M\n" << endl;
 volVectorField M
 (
