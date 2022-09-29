@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
             U = HbyA - rAU*fvc::grad(p);
             U.correctBoundaryConditions();
         }
-
+/*
         fvScalarMatrix TEqn
         (
             fvm::ddt(T)
@@ -121,7 +121,8 @@ int main(int argc, char *argv[])
         );
 
 	TEqn.solve();
-
+*/
+	#include "TEqn.H"
 	
         fvVectorMatrix MEqn
         (
