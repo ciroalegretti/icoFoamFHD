@@ -119,13 +119,36 @@ int main(int argc, char *argv[])
             - fvm::laplacian(alpha, T)
         );
 
-        TEqn.solve();
+	TEqn.solve();
 
+
+        fvScalarMatrix MEqn
+        (
+            fvm::ddt(M)
+            + fvm::div(phi,M)
+        );
+
+	solve(MEqn == fvc::Sp((1 / 2)*fvc::curl(fvc::curl(U) ^ M))
+		    + fvc::Sp((3 / 4)*(alpha_m / Pe)*((M ^ H) ^ M))
+		    + fvc::Sp((1 / Pe)*(M0 - M)));
+
+        /*
+        fvScalarMatrix M0Eqn
+        (
+            fvm::ddt(T)
+            + fvm::div(phi, T)
+            - fvm::laplacian(alpha, T)
+        );
+
+        
+        */
+        
+        
         runTime.write();
 
-        Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
-            << "  ClockTime = " << runTime.elapsedClockTime() << " s"
-            << nl << endl;
+        //Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
+          //  << "  ClockTime = " << runTime.elapsedClockTime() << " s"
+            //<< nl << endl;
     }
 
     Info<< "End\n" << endl;
