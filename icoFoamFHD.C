@@ -121,17 +121,20 @@ int main(int argc, char *argv[])
 
 	TEqn.solve();
 
-/*
-        fvScalarMatrix MEqn
+	
+        fvVectorMatrix MEqn
         (
             fvm::ddt(M)
             + fvm::div(phi,M)
         );
+	
+	volVectorField MxH = M^H;
+	
+	solve(MEqn == (0.5*(fvc::curl(U) ^ M)
+		    + (mu0 / (6*nu*rho * vf))*(MxH ^ M)
+		    + (1 / Pe)*(M0 - M)));
 
-	solve(MEqn == (1 / 2)*fvc::curl(fvc::curl(U) ^ M);
-		    //+ fvc::Sp((3 / 4)*(alpha_m / Pe)*((M ^ H) ^ M))
-//		    + fvc::Sp((1 / Pe)*(M0 - M)))
-
+/*
         
         fvScalarMatrix M0Eqn
         (

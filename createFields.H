@@ -14,11 +14,18 @@ IOdictionary transportProperties
 
 // uniform and constant imported from dict
 
-dimensionedScalar nu
+dimensionedScalar nu // kinematic viscosity
 (
     "nu",
-    dimViscosity,
+    //dimViscosity,
     transportProperties.lookup("nu")
+);
+
+dimensionedScalar rho // density
+(
+    "rho",
+    //dimViscosity,
+    transportProperties.lookup("rho")
 );
 
 dimensionedScalar mu0
@@ -124,21 +131,6 @@ volVectorField U
     ),
     mesh
 );
-/*
-Info<< "Reading field M\n" << endl;
-volVectorField M
-(
-    IOobject
-    (
-        "M",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-*/
 
 Info<< "Reading field H\n" << endl;
 volVectorField H
@@ -228,12 +220,25 @@ forAll(M0,i)
 {
     double alpha_mC = alpha_m[i];
     
-    
     M0[i][0] = 0.0;
     M0[i][1] = vf.value() * Md.value() * (1.0/(Foam::tanh(alpha_mC)) - 1.0/(alpha_mC));
     M0[i][2] = 0.0;
 
 }    
+
+Info<< "Reading field M\n" << endl;
+volVectorField M
+(
+    IOobject
+    (
+        "M",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
 
 
 #include "createPhi.H"
