@@ -62,11 +62,12 @@ int main(int argc, char *argv[])
             fvm::ddt(U)
           + fvm::div(phi, U)
           - fvm::laplacian(nu, U)
+          - (mu0 / rho)*(0.5*fvc::curl(M ^ H) + (M & fvc::grad(H)))
         );
 
         if (piso.momentumPredictor())
         {
-            solve(UEqn == -fvc::grad(p));
+            solve(UEqn == (-fvc::grad(p)));
         }
 
         // --- PISO loop
@@ -149,9 +150,9 @@ int main(int argc, char *argv[])
         
         runTime.write();
 
-        //Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
-          //  << "  ClockTime = " << runTime.elapsedClockTime() << " s"
-            //<< nl << endl;
+        Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
+            << "  ClockTime = " << runTime.elapsedClockTime() << " s"
+            << nl << endl;
     }
 
     Info<< "End\n" << endl;
