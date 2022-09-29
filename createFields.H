@@ -70,6 +70,12 @@ dimensionedScalar m
      transportProperties.lookup("m")
 );
 
+dimensionedScalar lambda
+(
+     "lambda",
+     transportProperties.lookup("lambda")
+);
+
 // scalar fields
 
 Info<< "Reading field p\n" << endl;

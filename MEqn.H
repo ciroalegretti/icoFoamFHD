@@ -1,5 +1,6 @@
 {
-	#include "M0Eqn.H"
+//	#include "M0Eqn.H"
+	#include "ivanov_M0Eqn.H"
 
         fvVectorMatrix MEqn
         (
