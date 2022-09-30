@@ -112,11 +112,14 @@ int main(int argc, char *argv[])
             U = HbyA - rAU*fvc::grad(p);
             U.correctBoundaryConditions();
         }
-
+        
+	// Compute temperature field
 	#include "TEqn.H"
-
+        // Compute uniform-gradient external field H
+        #include "HEqn.H"
+	// Compute normalized external field alpha_m
 	#include "AEqn.H"
-	
+	// Compute magnetization
 	#include "MEqn.H"
         
         runTime.write();
