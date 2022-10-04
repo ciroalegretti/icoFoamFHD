@@ -128,6 +128,8 @@ int main(int argc, char *argv[])
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
     }
+    // Compute additional postProcessing data
+    #include "write.H"
 
     Info<< "End\n" << endl;
 
